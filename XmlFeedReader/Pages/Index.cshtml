@@ -1,0 +1,24 @@
+﻿@page
+@model IndexModel
+@using System.Web
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RSS Reader</title>
+</head>
+<body>
+    <h1>XML Elements:</h1>
+    <ul>
+        @foreach (var item in Model.Items)
+        {
+            <li>
+                <h3>@item.Title</h3>
+                <p>Description: @Html.Raw(item.Description)</p>
+                <p>Publication Date: @item.PubDate</p>
+                <p>Link: <a href="@item.Link">@item.Link</a></p>
+            </li>
+        }
+    </ul>
+</body>
+</html>
