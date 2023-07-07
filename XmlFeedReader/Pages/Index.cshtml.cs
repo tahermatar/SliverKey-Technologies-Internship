@@ -1,51 +1,58 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Xml;
 
 namespace XmlFeedReader.Pages
 {
     public class IndexModel : PageModel
     {
+        private readonly IHttpClientFactory _httpClientFactory;
+
         public List<XmlItem> Items { get; set; } = new();
 
-        public void OnGet()
+        public IndexModel(IHttpClientFactory httpClientFactory)
         {
-            // Fetch the XML data using HttpClient
-            using (var client = new HttpClient())
+            _httpClientFactory = httpClientFactory;
+        }
+        public async Task<IActionResult> OnGet()
+        {
+            var client = _httpClientFactory.CreateClient();
+            string xmlUrl = "http://scripting.com/rss.xml";
+            var response = await client.GetAsync(xmlUrl);
+
+            if (response.IsSuccessStatusCode)
             {
-                string xmlUrl = "http://scripting.com/rss.xml";
-                var response = client.GetAsync(xmlUrl).Result;
-                if (response.IsSuccessStatusCode)
+                var xmlContent = await response.Content.ReadAsStringAsync();
+
+                // Parse the XML content
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(xmlContent);
+
+                // Get the root element
+                var rootElement = xmlDoc.DocumentElement;
+
+                // Create a list to hold the parsed items
+                var items = new List<XmlItem>();
+
+                // Iterate over the "item" elements
+                var itemNodes = rootElement.SelectNodes("channel/item");
+                foreach (XmlNode itemNode in itemNodes)
                 {
-                    var xmlContent = response.Content.ReadAsStringAsync().Result;
+                    var item = new XmlItem();
+                    item.Title = itemNode.SelectSingleNode("title")?.InnerText;
+                    item.Description = itemNode.SelectSingleNode("description")?.InnerText;
+                    item.PubDate = itemNode.SelectSingleNode("pubDate")?.InnerText;
+                    item.Link = itemNode.SelectSingleNode("link")?.InnerText;
+                    item.Guid = itemNode.SelectSingleNode("guid")?.InnerText;
 
-                    // Parse the XML content
-                    XmlDocument xmlDoc = new XmlDocument();
-                    xmlDoc.LoadXml(xmlContent);
-
-                    // Get the root element
-                    var rootElement = xmlDoc.DocumentElement;
-
-                    // Create a list to hold the parsed items
-                    var items = new List<XmlItem>();
-
-                    // Iterate over the "item" elements
-                    var itemNodes = rootElement.SelectNodes("channel/item");
-                    foreach (XmlNode itemNode in itemNodes)
-                    {
-                        var item = new XmlItem();
-                        item.Title = itemNode.SelectSingleNode("title")?.InnerText;
-                        item.Description = itemNode.SelectSingleNode("description")?.InnerText;
-                        item.PubDate = itemNode.SelectSingleNode("pubDate")?.InnerText;
-                        item.Link = itemNode.SelectSingleNode("link")?.InnerText;
-                        item.Guid = itemNode.SelectSingleNode("guid")?.InnerText;
-
-                        items.Add(item);
-                    }
-
-                    // Populate the Items property with the parsed data
-                    Items = items;
+                    items.Add(item);
                 }
+
+                // Populate the Items property with the parsed data
+                Items = items;
             }
+            return Page();
+
         }
 
     }

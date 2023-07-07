@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("XmlFeedReader")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8fa867b911b4208fe746f8a90bfefe007a69b417")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e5f9325611807c2d924da30bb33e36eebb7bbe24")]
 [assembly: System.Reflection.AssemblyProductAttribute("XmlFeedReader")]
 [assembly: System.Reflection.AssemblyTitleAttribute("XmlFeedReader")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

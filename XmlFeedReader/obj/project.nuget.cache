@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4jYjwEzTGtYK02e1GIbo6FPJuevCbT9byIPert2Nk8KKrLLHpyus5CTEJlgWfvr0In6ld5QGQCHVlztiw4Ftdw==",
+  "dgSpecHash": "Aj6utW/USbKgQlmdA4LAEFnMroeQz82P7nOPa8ajkeis4W+IxRtaOTkiWcRS/qPWja6YR9bW9p1My5Par+vXsw==",
   "success": true,
-  "projectFilePath": "F:\\SilverKey Internship\\AllAssignments\\XmlFeedReader\\XmlFeedReader.csproj",
+  "projectFilePath": "F:\\SilverKey Internship\\AllAssignments\\SliverKey-Technologies-Internship\\XmlFeedReader\\XmlFeedReader.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hp\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

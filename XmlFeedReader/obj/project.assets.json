@@ -4808,11 +4808,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\SilverKey Internship\\AllAssignments\\XmlFeedReader\\XmlFeedReader.csproj",
+      "projectUniqueName": "F:\\SilverKey Internship\\AllAssignments\\SliverKey-Technologies-Internship\\XmlFeedReader\\XmlFeedReader.csproj",
       "projectName": "XmlFeedReader",
-      "projectPath": "F:\\SilverKey Internship\\AllAssignments\\XmlFeedReader\\XmlFeedReader.csproj",
+      "projectPath": "F:\\SilverKey Internship\\AllAssignments\\SliverKey-Technologies-Internship\\XmlFeedReader\\XmlFeedReader.csproj",
       "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-      "outputPath": "F:\\SilverKey Internship\\AllAssignments\\XmlFeedReader\\obj\\",
+      "outputPath": "F:\\SilverKey Internship\\AllAssignments\\SliverKey-Technologies-Internship\\XmlFeedReader\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
