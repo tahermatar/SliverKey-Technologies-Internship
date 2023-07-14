@@ -1,0 +1,53 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = FavouriteFeeds
+build_property.RootNamespace = FavouriteFeeds
+build_property.ProjectDir = F:\SilverKey Internship\AllAssignments\SliverKey-Technologies-Internship\FavouriteFeeds\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = F:\SilverKey Internship\AllAssignments\SliverKey-Technologies-Internship\FavouriteFeeds
+build_property._RazorSourceGeneratorDebug = 
+
+[F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/Favorites.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmF2b3JpdGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/FeedModel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmVlZE1vZGVsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-630nyvgkul

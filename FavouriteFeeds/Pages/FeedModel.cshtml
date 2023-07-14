@@ -1,0 +1,32 @@
+﻿@page
+@model XMLParser.Pages.FeedModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feed</title>
+</head>
+<body>
+    <h1>Feed</h1>
+
+    @if (Model.FeedData.Count > 0)
+    {
+        @foreach (var item in Model.FeedData)
+        {
+            <div>
+                @if (!string.IsNullOrEmpty(item.Title))
+                {
+                    <h2>@item.Title</h2>
+                }
+                <p>@item.Description</p>
+                <p>@item.PubDate</p>
+                <a href="@item.Link">Original article</a>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No feed items available.</p>
+    }
+</body>
+</html>

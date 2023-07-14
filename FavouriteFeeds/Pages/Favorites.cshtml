@@ -1,0 +1,78 @@
+﻿@page
+@model FavouriteFeeds.Pages.FavouritesModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Favourite RSS Feeds</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .feed-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .feed-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .feed-unfavorite-button {
+            margin-top: 10px;
+        }
+
+            .feed-unfavorite-button button {
+                padding: 5px 10px;
+                background-color: #f0f0f0;
+                color: #333;
+                text-decoration: none;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+                .feed-unfavorite-button button:hover {
+                    background-color: #ccc;
+                }
+
+        .no-items {
+            color: #999;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Favourite RSS Feeds</h1>
+
+    @if (Model.FavoriteFeeds != null && Model.FavoriteFeeds.Count > 0)
+    {
+        @foreach (var feed in Model.FavoriteFeeds)
+        {
+            <div class="feed-item">
+                <h2 class="feed-title">@feed.FeedTitle</h2>
+                <div class="feed-unfavorite-button">
+                    <form method="post" asp-page-handler="DeleteStar" asp-route-xmlUrl="@feed.XmlUrl" asp-route-htmlUrl="@feed.HtmlUrl" asp-route-feedTitle="@feed.FeedTitle">
+                        <button type="submit">Unstar</button>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="no-items">No favourite feeds available.</p>
+    }
+</body>
+</html>
