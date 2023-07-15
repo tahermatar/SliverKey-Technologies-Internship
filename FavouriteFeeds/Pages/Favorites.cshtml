@@ -61,10 +61,14 @@
         @foreach (var feed in Model.FavoriteFeeds)
         {
             <div class="feed-item">
-                <h2 class="feed-title">@feed.FeedTitle</h2>
-                <div class="feed-unfavorite-button">
-                    <form method="post" asp-page-handler="DeleteStar" asp-route-xmlUrl="@feed.XmlUrl" asp-route-htmlUrl="@feed.HtmlUrl" asp-route-feedTitle="@feed.FeedTitle">
-                        <button type="submit">Unstar</button>
+                <h2 class="feed-title">@feed.Title</h2>
+                <div class="text-center">
+                    <a href="/XMLParser?link=@feed.Link" target="_blank" class="btn btn-primary">Read Page</a>
+                    <form method="post" asp-page-handler="ToggleFavorite" class="d-inline">
+                        <input type="hidden" name="link" value="@feed.Link" />
+                        <button type="submit" class="btn btn-sm @(feed.IsFavorite ? "btn-favorite" : "btn-unfavorite")">
+                            <i class="fa fa-star"></i> @(feed.IsFavorite ? "Unstar" : "star")
+                        </button>
                     </form>
                 </div>
             </div>

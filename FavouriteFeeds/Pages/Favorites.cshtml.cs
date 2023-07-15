@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
@@ -11,45 +10,63 @@ namespace FavouriteFeeds.Pages
     public class FavouritesModel : PageModel
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private const string FavouritesCookieName = "Favourites";
+        private readonly ILogger<IndexModel> _logger;
 
-        public FavouritesModel(IHttpContextAccessor httpContextAccessor)
+        private const string FavouritesCookieName = "Favourites";
+        public int PageSize { get; set; } = 10;
+
+        public FavouritesModel(IHttpContextAccessor httpContextAccessor, ILogger<IndexModel> logger)
         {
             _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
         }
 
         public List<RssFeed> FavoriteFeeds { get; set; } = new List<RssFeed>();
 
-        public void OnGet()
+        public async Task<IActionResult> OnGet([FromQuery] int page = 1)
         {
             var favouritesJson = _httpContextAccessor.HttpContext.Request.Cookies[FavouritesCookieName];
             FavoriteFeeds = string.IsNullOrEmpty(favouritesJson) ? new List<RssFeed>() : JsonConvert.DeserializeObject<List<RssFeed>>(favouritesJson);
 
-            Debug.WriteLine("FavoriteFeeds Count: " + FavoriteFeeds.Count);
+            var itemCount = FavoriteFeeds.Count;
+
+            var startIndex = (page - 1) * PageSize;
+            var endIndex = startIndex + PageSize;
+
+            ViewData["CurrentPage"] = page;
+            ViewData["TotalPages"] = (int)Math.Ceiling((double)itemCount / PageSize);
+
+            return Page();
         }
 
-        public IActionResult OnPostDeleteStar(string xmlUrl, string htmlUrl, string RssFeedTitle)
+        public IActionResult OnPostDeleteStar(string link, int page)
         {
-            var favouritesJson = _httpContextAccessor.HttpContext.Request.Cookies[FavouritesCookieName];
-            var favourites = string.IsNullOrEmpty(favouritesJson) ? new List<RssFeed>() : JsonConvert.DeserializeObject<List<RssFeed>>(favouritesJson);
-
-            var RssFeedToRemove = favourites.FirstOrDefault(f => f.XmlUrl == xmlUrl && f.HtmlUrl == htmlUrl && f.FeedTitle == RssFeedTitle);
-            if (RssFeedToRemove != null)
+            try
             {
-                favourites.Remove(RssFeedToRemove);
+                var favouritesJson = _httpContextAccessor.HttpContext.Request.Cookies[FavouritesCookieName];
+                var favoriteFeeds = string.IsNullOrEmpty(favouritesJson) ? new List<RssFeed>() : JsonConvert.DeserializeObject<List<RssFeed>>(favouritesJson);
+
+                var favoriteFeed = favoriteFeeds.FirstOrDefault(f => f.Link == link);
+                if (favoriteFeed != null)
+                {
+                    favoriteFeeds.Remove(favoriteFeed);
+                    favoriteFeed.IsFavorite = false;
+                }
+                else
+                {
+                    favoriteFeed = new RssFeed { Link = link, IsFavorite = true };
+                    favoriteFeeds.Add(favoriteFeed);
+                }
+
+                var serializedFavoriteFeeds = JsonConvert.SerializeObject(favoriteFeeds);
+                _httpContextAccessor.HttpContext.Response.Cookies.Append(FavouritesCookieName, serializedFavoriteFeeds);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while toggling favorite status.");
             }
 
-            favouritesJson = JsonConvert.SerializeObject(favourites);
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(FavouritesCookieName, favouritesJson);
-
-            return RedirectToPage("/Favourites");
+            return RedirectToPage();
         }
-    }
-
-    public class RssFeed
-    {
-        public string XmlUrl { get; set; }
-        public string HtmlUrl { get; set; }
-        public string FeedTitle { get; set; }
     }
 }

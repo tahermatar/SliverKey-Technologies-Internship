@@ -45,7 +45,7 @@
             margin-top: 10px;
         }
 
-            .star-button a {
+            .star-button button {
                 display: inline-block;
                 padding: 5px 10px;
                 background-color: #f0f0f0;
@@ -55,68 +55,35 @@
                 border-radius: 4px;
             }
 
-                .star-button a:hover {
+                .star-button button:hover {
                     background-color: #ccc;
                 }
+
+        .btn-favorite {
+            background-color: yellow;
+        }
     </style>
 </head>
 <body>
     <h1>RSS Feeds</h1>
 
-    @if (Model.FeedTitles.Count > 0)
+    @foreach (var item in Model.FeedsDetails)
     {
-        @for (int i = 0; i < Model.FeedTitles.Count; i++)
-        {
-            <div>
-                <h2>@Model.FeedTitles[i]</h2>
-                <p>XML URL: @Model.XmlUrls[i]</p>
-                <p>HTML URL: @Model.HtmlUrls[i]</p>
-                <form method="post" asp-page-handler="Star" asp-route-xmlUrl="@Model.XmlUrls[i]">
-                    <button type="submit">Star</button>
+        <div class="feed-item">
+            <h3 class="feed-title">@item.Title</h3>
+            <div class="feed-description">@Html.Raw(item.Description)</div>
+            <div class="feed-pubdate">Publication Date: @item.PubDate</div>
+            <div class="feed-link">Link: <a href="@item.Link" target="_blank">@item.Link</a></div>
+            <div class="star-button">
+                <form method="post" asp-page-handler="ToggleFavorite">
+                    <input type="hidden" name="link" value="@item.Link" />
+                    <input type="hidden" name="title" value="@item.Title" />
+                    <button type="submit" class="@(item.IsFavorite ? "btn-favorite" : "")">
+                        @(item.IsFavorite ? "Unstar" : "Star")
+                    </button>
                 </form>
             </div>
-        }
+        </div>
     }
-    else
-    {
-        <p>No RSS feeds available.</p>
-    }
-
-    <h1>Favourite RSS Feeds</h1>
-    <a href="/Favorites">View Favourites</a>
 </body>
-@*<body>
-    <h1>RSS Feed Reader</h1>
-
-    @if (Model.RssItems != null && Model.RssItems.Count > 0)
-    {
-        @foreach (var item in Model.RssItems)
-        {
-            <div class="feed-item">
-                <h3 class="feed-title">@item.Title</h3>
-                <div class="feed-description">@Html.Raw(item.Description)</div>
-                <div class="feed-pubdate">Publication Date: @item.PubDate</div>
-                <div class="feed-link">Link: <a href="@item.Link" target="_blank">@item.Link</a></div>
-                <div class="star-button">
-                    @if (item.IsFavorite)
-                    {
-                        <form method="post" asp-page-handler="UnstarFeed" asp-route-id="@item.Id">
-                            <button type="submit">Unstar</button>
-                        </form>
-                    }
-                    else
-                    {
-                        <form method="post" asp-page-handler="StarFeed" asp-route-id="@item.Id">
-                            <button type="submit">Star</button>
-                        </form>
-                    }
-                </div>
-            </div>
-        }
-    }
-    else
-    {
-        <p>No RSS feeds available.</p>
-    }
-</body>*@
 </html>

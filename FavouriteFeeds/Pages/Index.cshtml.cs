@@ -1,67 +1,79 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace FavouriteFeeds.Pages
 {
-
     public class IndexModel : PageModel
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ILogger<IndexModel> _logger;
         private const string FavouritesCookieName = "Favourites";
+        public int PageSize { get; set; } = 10;
+        public List<RssFeed> FeedsDetails { get; set; } = new List<RssFeed>();
 
-        public IndexModel(IHttpClientFactory httpClientFactory)
+        public IndexModel(IHttpClientFactory httpClientFactory, ILogger<IndexModel> logger)
         {
             _httpClientFactory = httpClientFactory;
+            _logger = logger;
         }
 
-        public List<string> FeedTitles { get; set; } = new List<string>();
-        public List<string> XmlUrls { get; set; } = new List<string>();
-        public List<string> HtmlUrls { get; set; } = new List<string>();
-
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGet([FromQuery] int page = 1)
         {
-            var favouritesJson = HttpContext.Request.Cookies[FavouritesCookieName];
-            var favourites = JsonConvert.DeserializeObject<List<Feed>>(favouritesJson ?? "[]") ?? new List<Feed>();
-
-            var client = _httpClientFactory.CreateClient();
-            var opmlUrl = "https://blue.feedland.org/opml?screenname=dave";
-
-            var opmlResponse = await client.GetAsync(opmlUrl);
-            if (opmlResponse.IsSuccessStatusCode)
+            try
             {
-                var opmlContent = await opmlResponse.Content.ReadAsStringAsync();
-                var feedUrls = ParseOpml(opmlContent); // Replace with your own logic to parse the feed URLs from the OPML content
+                var httpClient = _httpClientFactory.CreateClient();
+                var response = await httpClient.GetAsync("https://blue.feedland.org/opml?screenname=dave");
 
-                foreach (var url in feedUrls)
+                if (response.IsSuccessStatusCode)
                 {
-                    var response = await client.GetAsync(url);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var content = await response.Content.ReadAsStringAsync();
-                        var feedTitle = ParseFeedTitle(content); // Replace with your own logic to parse feed title
-                        FeedTitles.Add(feedTitle);
-                        XmlUrls.Add(url);
-                        HtmlUrls.Add(GetHtmlUrlFromXmlUrl(url)); // Replace with your own logic to get HTML URL from XML URL
+                    var xmlContent = await response.Content.ReadAsStringAsync();
+                    var feedUrls = ParseOpml(xmlContent);
 
-                        // Check if the current feed is in the favourites list
-                        var isFavourite = favourites.Any(f => f.XmlUrl == url);
-                        if (isFavourite)
+                    var favoriteFeedsJson = Request.Cookies[FavouritesCookieName];
+                    var favoriteFeeds = string.IsNullOrEmpty(favoriteFeedsJson)
+                        ? new List<RssFeed>()
+                        : JsonConvert.DeserializeObject<List<RssFeed>>(favoriteFeedsJson);
+
+                    var paginatedFeedUrls = feedUrls.Skip((page - 1) * PageSize).Take(PageSize);
+
+                    foreach (var feedUrl in paginatedFeedUrls)
+                    {
+                        var feedDetails = new RssFeed { Link = feedUrl };
+
+                        var favoriteFeed = favoriteFeeds.FirstOrDefault(f => f.Link == feedDetails.Link);
+                        if (favoriteFeed != null)
                         {
-                            var feed = favourites.FirstOrDefault(f => f.XmlUrl == url);
-                            feed.IsStarred = true;
+                            feedDetails.IsFavorite = true;
                         }
+
+                        FeedsDetails.Add(feedDetails);
                     }
+
+                    ViewData["CurrentPage"] = page;
+                    ViewData["TotalPages"] = (int)Math.Ceiling((double)feedUrls.Count / PageSize);
+
+                    return Page();
+                }
+                else
+                {
+                    _logger.LogError("Unsuccessful status code");
+                    return RedirectToPage("/Error");
                 }
             }
-
-            return Page();
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while processing the request.");
+                return RedirectToPage("/Error");
+            }
         }
 
         private List<string> ParseOpml(string opmlContent)
@@ -83,35 +95,13 @@ namespace FavouriteFeeds.Pages
 
             return feedUrls;
         }
-
-
-        private string ParseFeedTitle(string xmlContent)
-        {
-            var xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(xmlContent);
-
-            var titleNode = xmlDoc.SelectSingleNode("//title");
-            if (titleNode != null)
-            {
-                var feedTitle = titleNode.InnerText;
-                return feedTitle;
-            }
-
-            return "Feed Title";
-        }
-
-
-        private string GetHtmlUrlFromXmlUrl(string xmlUrl)
-        {
-            var htmlUrl = xmlUrl.Replace(".xml", ".html");
-
-            return htmlUrl;
-        }
-
     }
 }
-public class Feed
+public class RssFeed
 {
-    public string XmlUrl { get; set; }
-    public bool IsStarred { get; set; }
+    public string Title { get; set; }
+    public string Link { get; set; }
+    public string Description { get; set; }
+    public string PubDate { get; set; }
+    public bool IsFavorite { get; set; } = false;
 }

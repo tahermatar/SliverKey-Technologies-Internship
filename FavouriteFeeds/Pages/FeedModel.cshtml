@@ -1,5 +1,5 @@
 ﻿@page
-@model XMLParser.Pages.FeedModel
+@model FavouriteFeeds.Pages.FeedModel
 
 <!DOCTYPE html>
 <html>
@@ -14,11 +14,10 @@
         @foreach (var item in Model.FeedData)
         {
             <div>
-                @if (!string.IsNullOrEmpty(item.Title))
+                @if (!string.IsNullOrEmpty(item.Description))
                 {
-                    <h2>@item.Title</h2>
+                    <h2>@item.Description</h2>
                 }
-                <p>@item.Description</p>
                 <p>@item.PubDate</p>
                 <a href="@item.Link">Original article</a>
             </div>

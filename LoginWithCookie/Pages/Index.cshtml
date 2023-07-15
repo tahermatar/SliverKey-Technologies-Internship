@@ -1,0 +1,28 @@
+﻿@page
+@model IndexModel
+@{
+}
+<div class="d-flex justify-content-center align-items-center">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form method="post" asp-page-handler="Logout">
+            <p style="font-size: 1.5rem; font-weight: bold;">Welcome @User.Identity.Name</p>
+            <button type="submit" class="btn btn-primary">Logout</button>
+        </form>
+    }
+    else
+    {
+        <form method="post">
+            <div>
+                <label for="inputUsername" class="form-label">Username</label>
+                <input type="text" class="form-control" id="inputUsername" name="LoginInput.Username" required>
+            </div>
+            <div>
+                <label for="inputPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="inputPassword" name="LoginInput.Password" required>
+            </div>
+            <div asp-validation-summary="All" class="text-danger" style="margin-top: 10px;"></div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    }
+</div>
