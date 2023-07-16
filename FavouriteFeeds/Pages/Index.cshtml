@@ -63,27 +63,66 @@
             background-color: yellow;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.x.x.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('form.star-button').submit(function (e) {
+                e.preventDefault();
+
+                var form = $(this);
+                var link = form.find('input[name="link"]').val();
+                var title = form.find('input[name="title"]').val();
+                var button = form.find('button');
+
+                $.ajax({
+                    url: form.attr('action'),
+                    method: 'POST',
+                    data: { link: link, title: title },
+                    beforeSend: function () {
+                        button.attr('disabled', true);
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            var isFavorite = response.isFavorite;
+                            button.toggleClass('btn-favorite', isFavorite);
+                            button.text(isFavorite ? 'Unstar' : 'Star');
+
+                            // Custom view customization
+                            var feedItem = button.closest('.feed-item');
+                            var pubDateElement = feedItem.find('.feed-pubdate');
+                            pubDateElement.text(isFavorite ? 'Publication Date: Favorite' : 'Publication Date:');
+                        } else {
+                            alert('Failed to toggle favorite status.');
+                        }
+                    },
+                    complete: function () {
+                        button.attr('disabled', false);
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <h1>RSS Feeds</h1>
 
     @foreach (var item in Model.FeedsDetails)
-    {
-        <div class="feed-item">
-            <h3 class="feed-title">@item.Title</h3>
-            <div class="feed-description">@Html.Raw(item.Description)</div>
-            <div class="feed-pubdate">Publication Date: @item.PubDate</div>
-            <div class="feed-link">Link: <a href="@item.Link" target="_blank">@item.Link</a></div>
-            <div class="star-button">
-                <form method="post" asp-page-handler="ToggleFavorite">
-                    <input type="hidden" name="link" value="@item.Link" />
-                    <input type="hidden" name="title" value="@item.Title" />
-                    <button type="submit" class="@(item.IsFavorite ? "btn-favorite" : "")">
-                        @(item.IsFavorite ? "Unstar" : "Star")
-                    </button>
-                </form>
-            </div>
+{
+    <div class="feed-item">
+        <h3 class="feed-title">@item.Title</h3>
+        <div class="feed-description">@Html.Raw(item.Description)</div>
+        <div class="feed-pubdate">Publication Date: @item.PubDate</div>
+        <div class="feed-link">Link: <a href="@item.Link" target="_blank">@item.Link</a></div>
+        <div class="star-button">
+            <form method="post" asp-page-handler="ToggleFavorite" class="star-button">
+                <input type="hidden" name="link" value="@item.Link" />
+                <input type="hidden" name="title" value="@item.Title" />
+                <button type="submit" class="@(item.IsFavorite ? "btn-favorite" : "")">
+                    @(item.IsFavorite ? "Unstar" : "Star")
+                </button>
+            </form>
         </div>
-    }
+    </div>
+}
 </body>
 </html>

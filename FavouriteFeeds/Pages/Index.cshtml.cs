@@ -95,6 +95,42 @@ namespace FavouriteFeeds.Pages
 
             return feedUrls;
         }
+
+        // ...
+
+public async Task<IActionResult> OnPostToggleFavorite(string link, string title)
+{
+    try
+    {
+        var favoriteFeedsJson = Request.Cookies[FavouritesCookieName];
+        var favoriteFeeds = string.IsNullOrEmpty(favoriteFeedsJson)
+            ? new List<RssFeed>()
+            : JsonConvert.DeserializeObject<List<RssFeed>>(favoriteFeedsJson);
+
+        var favoriteFeed = favoriteFeeds.FirstOrDefault(f => f.Link == link);
+        if (favoriteFeed != null)
+        {
+            favoriteFeeds.Remove(favoriteFeed);
+            favoriteFeed.IsFavorite = false;
+        }
+        else
+        {
+            favoriteFeed = new RssFeed { Link = link, IsFavorite = true };
+            favoriteFeeds.Add(favoriteFeed);
+        }
+
+        var serializedFavoriteFeeds = JsonConvert.SerializeObject(favoriteFeeds);
+        Response.Cookies.Append(FavouritesCookieName, serializedFavoriteFeeds);
+
+        return RedirectToPage("ToggleFavorite", new { success = true, isFavorite = favoriteFeed.IsFavorite });
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Error occurred while toggling favorite status.");
+        return RedirectToPage("ToggleFavorite", new { success = false, isFavorite = false });
+    }
+}
+
     }
 }
 public class RssFeed

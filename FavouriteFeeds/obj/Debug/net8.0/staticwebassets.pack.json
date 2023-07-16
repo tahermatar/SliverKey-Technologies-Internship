@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "F:\\SilverKey Internship\\AllAssignments\\SliverKey-Technologies-Internship\\FavouriteFeeds\\wwwroot\\js\\jquery-3.7.0.min.map",
+      "PackagePath": "staticwebassets\\js\\jquery-3.7.0.min.map"
+    },
+    {
       "Id": "F:\\SilverKey Internship\\AllAssignments\\SliverKey-Technologies-Internship\\FavouriteFeeds\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

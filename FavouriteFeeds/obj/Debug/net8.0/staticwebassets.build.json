@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "El/wscDyb4ewqk1zoraWJCmV691GjQGvqbcBBPRsBLc=",
+  "Hash": "HrgtXmpNpx1HLexwo9KFCu7BU60Tem5FWmiUVa/u+Yk=",
   "Source": "FavouriteFeeds",
   "BasePath": "_content/FavouriteFeeds",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "F:\\SilverKey Internship\\AllAssignments\\SliverKey-Technologies-Internship\\FavouriteFeeds\\wwwroot\\js\\jquery-3.7.0.min.map",
+      "SourceId": "FavouriteFeeds",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\SilverKey Internship\\AllAssignments\\SliverKey-Technologies-Internship\\FavouriteFeeds\\wwwroot\\",
+      "BasePath": "_content/FavouriteFeeds",
+      "RelativePath": "js/jquery-3.7.0.min.map",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\jquery-3.7.0.min.map"
     },
     {
       "Identity": "F:\\SilverKey Internship\\AllAssignments\\SliverKey-Technologies-Internship\\FavouriteFeeds\\wwwroot\\js\\site.js",

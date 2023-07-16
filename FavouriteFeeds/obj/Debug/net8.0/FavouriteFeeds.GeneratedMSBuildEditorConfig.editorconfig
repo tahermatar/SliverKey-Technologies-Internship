@@ -20,10 +20,6 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/Favorites.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmF2b3JpdGVzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/FeedModel.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmVlZE1vZGVsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -38,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/ToggleFavorite.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVG9nZ2xlRmF2b3JpdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/SilverKey Internship/AllAssignments/SliverKey-Technologies-Internship/FavouriteFeeds/Pages/_ViewImports.cshtml]
