@@ -1,0 +1,59 @@
+﻿@page
+@model ContactsListModel
+
+<h2>Contact List</h2>
+<p>Type something in the input field to search the table for first names, last names, or emails.</p>
+<input class="form-control" id="myInput" type="text" placeholder="Search...">
+<br>
+
+<table class="table table-dark table-hover">
+    <thead>
+        <tr >
+            <th scope="col">ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Title</th>
+            <th scope="col">Birth Date</th>
+            <th scope="col">Marital Status</th>
+            <th scope="col">Description</th>
+        </tr>
+    </thead>
+    <tbody id="myTable">
+        @foreach (var contact in Model.ContactsList)
+        {
+            <tr >
+                <td>@contact.Id</td>
+                <td>@contact.FirstName</td>
+                <td>@contact.LastName</td>
+                <td>@contact.Email</td>
+                <td>@contact.Title</td>
+                <td>@contact.BirthDate</td>
+                <td>@contact.MaritalStatus</td>
+                <td>@contact.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        window.addEventListener("load", function () {
+            var input = document.getElementById("myInput");
+            var table = document.getElementById("myTable");
+            var rows = table.getElementsByTagName("tr");
+
+            input.addEventListener("keyup", function () {
+                var value = this.value.toLowerCase();
+                for (var i = 0; i < rows.length; i++) {
+                    var rowText = rows[i].textContent.toLowerCase();
+                    if (rowText.indexOf(value) > -1) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            });
+        });
+    </script>
+}

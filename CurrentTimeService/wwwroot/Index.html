@@ -4,15 +4,29 @@
   <title>Current Date and Time</title>
 </head>
 <body>
-  <h2 id="datetime">Current Date and Time</h2>
+    <h2 id="datetime">Current Date and Time</h2>
+    <!--Use async for my fetch-->
+    <script>
+        async function getCurrentDateTime() {
+            try {
+                const response = await fetch('/api/datetime');
+                const data = await response.text();
+                const datetimeElement = document.getElementById('datetime');
+                datetimeElement.innerText = data;
+            } catch (error) {
+                console.log(error);
+            }
+        }
 
-  <script>
-    fetch('/api/datetime')
-      .then(response => response.text())
-      .then(data => {
-        const datetimeElement = document.getElementById('datetime');
-        datetimeElement.innerText = data;
-      });
-  </script>
+        getCurrentDateTime();
+    </script>
+    <!--<script>
+      fetch('/api/datetime')
+        .then(response => response.text())
+        .then(data => {
+          const datetimeElement = document.getElementById('datetime');
+          datetimeElement.innerText = data;
+        });
+    </script>-->
 </body>
 </html>

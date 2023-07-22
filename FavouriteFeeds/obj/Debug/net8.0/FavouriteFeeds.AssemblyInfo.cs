@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FavouriteFeeds")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+173745e7cebf4f62e1b3fc9f3a97516282db7ab2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b102b2653443d35e062fe6a9352d21e90e62f27")]
 [assembly: System.Reflection.AssemblyProductAttribute("FavouriteFeeds")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FavouriteFeeds")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
