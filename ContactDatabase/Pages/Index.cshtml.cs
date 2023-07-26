@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using EdgeDB;
+using System;
 
 namespace ContactDatabase.Pages;
 
@@ -8,7 +9,6 @@ public class IndexModel : PageModel
 {
     [BindProperty]
     public Contact NewContact { get; set; } = new();
-    public int counter { get; set; } = 0;
     private readonly EdgeDBClient _client;
 
     public IndexModel(EdgeDBClient client)
@@ -48,23 +48,17 @@ public class IndexModel : PageModel
 
 public class Contact
 {
-    public int Id { get; set; }
-    public String FirstName { get; set; }
-    public String LastName { get; set; }
-    public String Email { get; set; }
-    public String Title { get; set; }
-    public String Description { get; set; } = "";
-    public String BirthDate { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Email { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; } = "";
+    public string BirthDate { get; set; }
     public bool MaritalStatus { get; set; }
 
-    public Contact()
-    {
 
-    }
-
-    public Contact(int id, string firstName, string lastName, string email, string title, string description, string birthDate, bool maritalStatus)
+    public Contact(string firstName, string lastName, string email, string title, string description, string birthDate, bool maritalStatus)
     {
-        Id = id;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
@@ -72,5 +66,9 @@ public class Contact
         Description = description;
         BirthDate = birthDate;
         MaritalStatus = maritalStatus;
+    }
+
+    public Contact()
+    {
     }
 }
